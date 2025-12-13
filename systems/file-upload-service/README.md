@@ -19,3 +19,13 @@ handled by a backend server responsible for processing and storage.
 - Separation of concerns
 - Centralized logic and security
 - Enables independent scaling of client and server
+
+## Prototype Validation
+
+A minimal Node.js + Express prototype was implemented to validate
+client–server communication via HTTP.
+
+This confirms:
+- Separation of client and server responsibilities
+- Stateless request handling
+- Centralized backend logic
