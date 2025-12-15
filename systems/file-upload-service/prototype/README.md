@@ -19,3 +19,15 @@ Returns a JSON response to confirm connectivity.
 ## System Design Relevance
 This prototype supports the documented client–server architecture by
 providing a minimal working backend implementation.
+
+## REST API Endpoints
+
+### POST /files
+Creates a new file resource.
+
+**Request Body**
+```json
+{
+  "filename": "example.pdf",
+  "size": 12345
+}

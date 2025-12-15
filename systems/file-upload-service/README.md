@@ -29,3 +29,14 @@ This confirms:
 - Separation of client and server responsibilities
 - Stateless request handling
 - Centralized backend logic
+
+## REST API Design
+
+The backend exposes a RESTful API where files are treated as resources.
+Clients interact with the system using standard HTTP methods.
+
+- POST /files: create a file resource
+- GET /files/{id}: retrieve metadata (future)
+
+This design enables stateless communication and clear separation
+between client and server responsibilities.
