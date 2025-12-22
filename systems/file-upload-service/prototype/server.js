@@ -1,35 +1,38 @@
 import express from "express";
 
 const app = express();
-
-// Middleware to parse JSON request bodies
 app.use(express.json());
 
-// Health check endpoint
 app.get("/ping", (req, res) => {
   res.json({ message: "pong" });
 });
-
-// RESTful endpoint to create a new file resource
+// RESTful endpoint
 app.post("/files", (req, res) => {
   const { filename, size } = req.body;
 
-  // Basic validation (REST principle: client sends data, server validates)
   if (!filename || !size) {
     return res.status(400).json({
       error: "filename and size are required",
     });
   }
 
-  // Simulate creating a resource (no DB yet)
+  const fileId = Date.now();
+
+  // Respond immediately (optimize latency)
   res.status(201).json({
-    message: "File created",
+    message: "File accepted for processing",
     file: {
-      id: Date.now(),
+      id: fileId,
       filename,
       size,
+      status: "processing",
     },
   });
+
+  // Simulate heavy background work (optimize throughput)
+  setTimeout(() => {
+    console.log(`Finished processing file ${fileId}`);
+  }, 3000);
 });
 
 app.listen(3000, () => {

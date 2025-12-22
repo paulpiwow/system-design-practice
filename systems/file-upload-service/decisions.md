@@ -40,3 +40,22 @@ through resource-based endpoints using standard HTTP methods.
 - RPC-style endpoints
 - GraphQL
 - gRPC (better suited for internal service-to-service communication)
+
+## Decision: Separate Latency-Sensitive and Throughput-Sensitive Work
+
+### Context
+File uploads require fast client responses while supporting high volumes
+of backend processing.
+
+### Decision
+Respond immediately to client requests while deferring heavy processing
+to background execution.
+
+### Rationale
+- Improves perceived performance (low latency)
+- Enables higher throughput under load
+- Prevents clients from blocking on long-running tasks
+
+### Trade-offs
+- Increased system complexity
+- Requires background processing infrastructure at scale
