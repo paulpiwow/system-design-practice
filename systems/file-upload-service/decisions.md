@@ -59,3 +59,22 @@ to background execution.
 ### Trade-offs
 - Increased system complexity
 - Requires background processing infrastructure at scale
+
+
+## Decision: Design Backend for Horizontal Scalability
+
+### Context
+File uploads must scale beyond the limits of a single server instance.
+
+### Decision
+Design the backend to be stateless and runnable as multiple identical
+instances to enable horizontal scaling.
+
+### Rationale
+- Avoid single points of failure
+- Increase throughput by adding instances
+- Align with cloud-native deployment models
+
+### Trade-offs
+- Requires load balancing
+- More complex debugging and monitoring

@@ -3,10 +3,17 @@ import express from "express";
 const app = express();
 app.use(express.json());
 
+// Simulate a unique server instance (in real life: container ID)
+const SERVER_ID = Math.floor(Math.random() * 10000);
+
 app.get("/ping", (req, res) => {
-  res.json({ message: "pong" });
+  res.json({
+    message: "pong",
+    serverId: SERVER_ID,
+  });
 });
-// RESTful endpoint
+
+// REST endpoint
 app.post("/files", (req, res) => {
   const { filename, size } = req.body;
 
@@ -18,7 +25,7 @@ app.post("/files", (req, res) => {
 
   const fileId = Date.now();
 
-  // Respond immediately (optimize latency)
+  // Respond immediately (latency)
   res.status(201).json({
     message: "File accepted for processing",
     file: {
@@ -27,14 +34,17 @@ app.post("/files", (req, res) => {
       size,
       status: "processing",
     },
+    handledBy: SERVER_ID,
   });
 
-  // Simulate heavy background work (optimize throughput)
+  // Background processing (throughput)
   setTimeout(() => {
-    console.log(`Finished processing file ${fileId}`);
+    console.log(`Server ${SERVER_ID} finished processing file ${fileId}`);
   }, 3000);
 });
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`Server ${SERVER_ID} running on port ${PORT}`);
 });
